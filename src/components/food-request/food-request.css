@@ -2,19 +2,24 @@
     margin-top: 1em;
 }
 
-.food-request-form-wrapper {
-    margin-top: 1em;
-}
-
-.box-menu {
-    background-color: #FFF;
-    display: none;
-    top: 15em;
-    border: 1px solid #e6ffe6;
-    z-index: 99;
-    width: 100% !important;
-    overflow: auto;
-    max-height: 538px;
+.request-food-wrapper {
+    background: #f2f3f3;
+    border: solid 1px #ebebeb;
+    box-sizing: border-box;
+    color: #7b7b7b;
+    display: block;
+    font-size: 1.5em;
+    font-weight: 700;
+    height: 45px;
+    line-height: 45px;
+    margin-bottom: 10px;
+    overflow: hidden;
+    padding: 0 20px;
+    position: relative;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 100%;
+    cursor: pointer;
 }
 
 input[type=text], input[type=number] {
@@ -28,7 +33,7 @@ input[type=text], input[type=number] {
 
 .btn-discard {
     background-color: #f1f3f5;
-    color: #1ABC9C;
+    color: rgb(149, 19, 131);
 }
 
 input[type=radio] {
@@ -36,6 +41,7 @@ input[type=radio] {
     margin: 8px 0;
 }
 
-.food-request-table-container {
-    margin-top: 1em;
+.btn-send-request {
+    background-color: rgb(242, 243, 243);
+    color: rgb(149, 19, 131);
 }

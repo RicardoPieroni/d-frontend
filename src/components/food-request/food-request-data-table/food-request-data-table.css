@@ -1,0 +1,28 @@
+.request-table {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.request-table tr:nth-child(even){
+    background-color: #f2f2f2;
+}
+
+.request-table tr:hover {
+    background-color: #ddd;
+}
+
+.request-table th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: center;
+    background-color: white;
+    color: rgb(149, 19, 131);
+}
+
+.request-table td {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: center;
+    background-color: white;
+}

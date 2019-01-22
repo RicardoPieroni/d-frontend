@@ -3,18 +3,30 @@ import $ from 'jquery';
 import TabHeader from './tab-header';
 import NavFoodRequest from './nav-food-request';
 import IncreaseIngredientModal from './increase-ingredient-modal';
+import FoodMenu from './food-menu';
+import FoodRequestDataTable from './food-request-data-table';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { retrieveIngredientList, retrieveSnackList } from './../../actions';
+import { 
+    retrieveIngredientList,
+    retrieveSnackList,
+    retrieveFoodRequestDetails,
+    addSnackOnRequestList,
+    removeSnackFromRequestList,
+    addRequestListInToRequest
+} from './../../actions';
 
 import './food-request.css';
 
 class FoodRequest extends Component {
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.onToggleMenu = this._onToggleMenu.bind(this);
+        this.onCheckBoxSnackChanged = this._onCheckBoxSnackChanged.bind(this);
+        this.onAmountChanged = this._onAmountChanged.bind(this);
+        this.onAddRequest = this._onAddRequest.bind(this);
     }
 
     _onToggleMenu() {
@@ -23,12 +35,37 @@ class FoodRequest extends Component {
     }
 
     componentWillMount() {
-        this.props.retrieveIngredientList();
-        this.props.retrieveSnackList();
+        this.props.retrieveFoodRequestDetails();
+    }
+
+    _onCheckBoxSnackChanged(e) {
+        const checked = e.target.checked;
+        const dataTO = {
+            _id: e.target.value,
+        }
+        if (checked) {
+            this.props.addSnackOnRequestList(this.props.requestList, dataTO);
+        } else {
+            this.props.removeSnackFromRequestList(this.props.requestList, dataTO);
+        }
+    }
+
+    _onAmountChanged(e) {
+        const id = e.target.id.substring(6);
+        const dataTO = {
+            _id: id,
+            amount: e.target.value,
+        }
+        this.props.addSnackOnRequestList(this.props.requestList, dataTO)
+    }
+
+    _onAddRequest() {
+        const requestList = this.props.requestList;
+        this.props.addRequestListInToRequest(requestList);
     }
 
     render(){
-        const { ingredientList, snackList } = this.props;
+        const { ingredientList, snackList, requestList, request } = this.props;
         return (
             <div className="grid-parent grid-container food-request-container">
                 <TabHeader />
@@ -36,30 +73,20 @@ class FoodRequest extends Component {
                     <div className="grid-50">
                         <NavFoodRequest text= "Cardápio" onClicked={ this.onToggleMenu}/>
                         <div className="grid-100 box-menu">
-                            <div className="grid-100">
-                                    {
-                                       snackList && snackList.map((snack, index) => (
-                                           <div className="grid-100">
-                                                <div className="grid-50">
-                                                    <input type="checkbox" key={index} 
-                                                        name={`checkbox-${snack._id}`} value={snack._id}
-                                                    />
-                                                    <label >{snack.name}</label>
-                                                </div>
-                                                <div className="grid-50">
-                                                    <input type="number" placeholder="Quantidade"
-                                                        name={`amout-${snack._id}`}
-                                                    />
-                                                </div>
-                                            </div>
-                                        ))
-                                    }
-                            </div>
+                            <FoodMenu snackList={snackList}
+                            onCheckBoxSnackChanged={this.onCheckBoxSnackChanged}
+                            onAmountChanged={this.onAmountChanged}
+                            onAddRequest={this.onAddRequest}
+                            requestList={requestList}
+                            />
                         </div>
                     </div>
-                </div>
-                <div className="food-request-table-container">
-                     
+                    <div className="grid-50">
+                        <FoodRequestDataTable request={request}/>
+                        <button className="btn-send-request">
+                        <i className="fas fa-share-square"></i>Enviar Pedido
+                        </button>
+                    </div>
                 </div>
                 <IncreaseIngredientModal ingredientList={ingredientList}/>
             </div>
@@ -69,9 +96,17 @@ class FoodRequest extends Component {
 const mapStateToProps = store => ({
     ingredientList: store.FoodRequest.ingredientList,
     snackList: store.FoodRequest.snackList,
+    request: store.FoodRequest.request,
+    requestList: store.FoodRequest.requestList,
 });
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators({ retrieveIngredientList, retrieveSnackList }, dispatch);
+  bindActionCreators({ retrieveIngredientList,
+    retrieveSnackList,
+    retrieveFoodRequestDetails,
+    addSnackOnRequestList,
+    removeSnackFromRequestList,
+    addRequestListInToRequest
+ }, dispatch);
   
 export default connect(mapStateToProps, mapDispatchToProps)(FoodRequest);

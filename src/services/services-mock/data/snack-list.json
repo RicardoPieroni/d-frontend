@@ -2,84 +2,100 @@
     {
         "_id": "000000000000000000000001",
         "name": "X-bacon",
+        "price": 6.50,
         "ingredients" : [
             {
                 "_id": "000000000000000000000002",
                 "name": "Bacon",
-                "price": 2.00
+                "price": 2.00,
+                "amount": 1
             },
             {
                 "_id": "000000000000000000000003",
                 "name": "Hambúrguer de carne",
-                "price": 3.00
+                "price": 3.00,
+                "amount": 1
             },
             {
                 "_id": "000000000000000000000005",
                 "name": "Queijo",
-                "price": 1.50
+                "price": 1.50,
+                "amount": 1
             }
         ]
     },
     {
         "_id": "000000000000000000000002",
         "name": "X-burger",
+        "price": 4.50,
         "ingredients" : [
             {
                 "_id": "000000000000000000000003",
                 "name": "Hambúrguer de carne",
-                "price": 3.00
+                "price": 3.00,
+                "amount": 1
             },
             {
                 "_id": "000000000000000000000005",
                 "name": "Queijo",
-                "price": 1.50
+                "price": 1.50,
+                "amount": 1
             }
         ]
     },
     {
         "_id": "000000000000000000000003",
         "name": "X-egg",
+        "price": 5.30,
         "ingredients" : [
             {
                 "_id": "000000000000000000000003",
                 "name": "Hambúrguer de carne",
-                "price": 3.00
+                "price": 3.00,
+                "amount": 1
             },
             {
                 "_id": "000000000000000000000005",
                 "name": "Queijo",
-                "price": 1.50
+                "price": 1.50,
+                "amount": 1
             },
             {
                 "_id": "000000000000000000000004",
                 "name": "Ovo",
-                "price": 0.80
+                "price": 0.80,
+                "amount": 1
             }
         ]
     },
     {
         "_id": "000000000000000000000004",
         "name": "X-egg",
+        "price": 7.30,
         "ingredients" : [
             {
                 "_id": "000000000000000000000003",
                 "name": "Hambúrguer de carne",
-                "price": 3.00
+                "price": 3.00,
+                "amount": 1
             },
             {
                 "_id": "000000000000000000000005",
                 "name": "Queijo",
-                "price": 1.50
+                "price": 1.50,
+                "amount": 1
             },
             {
                 "_id": "000000000000000000000004",
                 "name": "Ovo",
-                "price": 0.80
+                "price": 0.80,
+                "amount": 1
             },
             {
                 "_id": "000000000000000000000002",
                 "name": "Bacon",
-                "price": 2.00
+                "price": 2.00,
+                "amount": 1
             }
         ]
     }

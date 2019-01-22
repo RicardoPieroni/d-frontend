@@ -13,7 +13,7 @@ class IncreaseIngredientModal extends Component {
                         <div className="grid-100">
                             {
                                 ingredientList && ingredientList.map((ingredient, index) => (
-                                    <div className="grid-100">
+                                    <div className="grid-100" key={ingredient._id}>
                                         <div className="grid-50">
                                             <input type="checkbox" key={index} name={`checkbox-${ingredient._id}`} value={ingredient.name}/>
                                             <label >{ingredient.name}</label>

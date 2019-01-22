@@ -1,0 +1,14 @@
+.box-menu {
+    background-color: #FFF;
+    display: none;
+    top: 15em;
+    border: 1px solid #e6ffe6;
+    z-index: 99;
+    width: 100% !important;
+    overflow: auto;
+    max-height: 538px;
+}
+
+.grid-center {
+    margin-top: 10px;
+}
