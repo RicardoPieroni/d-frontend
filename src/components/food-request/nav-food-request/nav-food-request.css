@@ -1,0 +1,36 @@
+.nav-food-wrapper {
+    background: #f2f3f3;
+    border: solid 1px #ebebeb;
+    box-sizing: border-box;
+    color: #7b7b7b;
+    display: block;
+    font-size: 1.5em;
+    font-weight: 700;
+    height: 45px;
+    line-height: 45px;
+    margin-bottom: 10px;
+    overflow: hidden;
+    padding: 0 20px;
+    position: relative;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 100%;
+    cursor: pointer;
+}
+
+.arrow-down-nav, .arrow-up-nav {
+    width: 0;
+    float: right;
+    height: 0;
+    margin: 20px;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: 8px solid #4d4d33;
+}
+
+.arrow-up-nav {
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: none;
+    border-bottom: 8px solid #4d4d33;
+}

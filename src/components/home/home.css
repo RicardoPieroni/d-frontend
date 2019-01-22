@@ -1,0 +1,16 @@
+.link-menu-container {
+    color: #4d4d33;
+}
+
+.menu-container {
+    margin-top: 1em;
+}
+
+.fas, .fab {
+    margin-top: 0.2em;
+    margin-left: 1em;
+ }
+
+ .link-menu-container:focus {
+    outline: none;
+  }

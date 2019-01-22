@@ -1,0 +1,41 @@
+.food-request-container {
+    margin-top: 1em;
+}
+
+.food-request-form-wrapper {
+    margin-top: 1em;
+}
+
+.box-menu {
+    background-color: #FFF;
+    display: none;
+    top: 15em;
+    border: 1px solid #e6ffe6;
+    z-index: 99;
+    width: 100% !important;
+    overflow: auto;
+    max-height: 538px;
+}
+
+input[type=text], input[type=number] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+.btn-discard {
+    background-color: #f1f3f5;
+    color: #1ABC9C;
+}
+
+input[type=radio] {
+    padding: 13px 20px;
+    margin: 8px 0;
+}
+
+.food-request-table-container {
+    margin-top: 1em;
+}
