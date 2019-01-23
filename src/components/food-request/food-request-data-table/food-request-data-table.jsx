@@ -8,10 +8,18 @@ class FoodRequestDataTable extends Component {
     constructor() {
         super();
         this.prepareIngredientsToDisplay = this._prepareIngredientsToDisplay.bind(this);
+        this.onIncreaseIngredientsModalClicked = this._onIncreaseIngredientsModalClicked.bind(this);
     }
 
     _prepareIngredientsToDisplay(data) {
-        return data.map((item) => item.name).join(", ");
+        return data.map((item) => `${item.name} (${item.amount})`).join(", ");
+    }
+
+    _onIncreaseIngredientsModalClicked(data) {
+        const callback = this.props.onIncreaseIngredients;
+        if (callback) {
+            callback(data);
+        }
     }
 
     render() {
@@ -44,9 +52,10 @@ class FoodRequestDataTable extends Component {
                                             iconSizeClass="fa-2x" classReference={item._id}
                                             description={this.prepareIngredientsToDisplay(item.ingredients)}/>
                                             </td>
-                                            <td>{ item.price }</td>
+                                            <td>{ item.price.toFixed(2) }</td>
                                             <td>
-                                                <i className="fas fa-plus-square"></i>
+                                                <i onClick={() => this.onIncreaseIngredientsModalClicked(item)}
+                                                    className="fas fa-plus-square" />
                                                 <i className="fas fa-trash-alt"></i>
                                             </td>
                                         </tr>
@@ -55,7 +64,7 @@ class FoodRequestDataTable extends Component {
                             </tbody>
                             <tfoot>
                                 <tr>
-                                    <th> Total: { request ? request.price : 0.00 }</th>
+                                    <th> Total: { request ? request.price.toFixed(2) : '0.00' }</th>
                                 </tr>
                             </tfoot>
                         </table>

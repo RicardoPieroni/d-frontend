@@ -9,51 +9,37 @@ class FoodMenu extends Component {
     constructor(){
         super();
         this.prepareIngredientsToDisplay = this._prepareIngredientsToDisplay.bind(this);
-        this.onCheckBoxSnackChanged = this._onCheckBoxSnackChanged.bind(this);
-        this.snackRequestList = [];
+        this.foodRequestList = [];
     }
 
     _prepareIngredientsToDisplay(data) {
-        return data.map((item) => item.name).join(", ");
-    }
-
-    _onCheckBoxSnackChanged(e) {
-        const callback = this.props.onCheckBoxSnackChanged;
-        if (callback) {
-            callback(e);
-        }
+        return data.map((item) => `${item.name} (${item.amount})`).join(", ");
     }
 
     render() {
-        const { snackList } = this.props;
+        const { foodList } = this.props;
         return(
             <div className="grid-100">
                 <div className="grid-100">
                     {
-                        snackList && snackList.map((snack, index) => (
+                        foodList && foodList.map((food, index) => (
                             
-                            <div className="grid-100" key={snack._id}>
+                            <div className="grid-100" key={food._id}>
                                 <div className="grid-30 grid-center">
-                                    <input type="checkbox" key={snack._id}
-                                        ref={c => this.checkBoxSnack = c} 
-                                        onChange={(e) => this.onCheckBoxSnackChanged(e)}
-                                        name={`checkbox-${snack._id}`}
-                                         value={snack._id}
-                                    />
-                                    <label >{snack.name}</label>
+                                    <label >{food.name}</label>
                                 </div>
                                 <div className="grid-20 grid-center">
-                                    <label className="label-price">{ 'R$ ' + snack.price.toFixed(2)}</label>
+                                    <label className="label-price">{ 'R$ ' + food.price.toFixed(2)}</label>
                                 </div>
                                 <div className="grid-20">
-                                    <Info keyComponent={snack._id} tagTitle="Ingredientes" modalTitle="Ingredientes"
-                                    iconSizeClass="fa-2x" classReference={snack._id}
-                                    description={this.prepareIngredientsToDisplay(snack.ingredients)}/>
+                                    <Info keyComponent={food._id} tagTitle="Ingredientes" modalTitle="Ingredientes"
+                                    iconSizeClass="fa-2x" classReference={food._id}
+                                    description={this.prepareIngredientsToDisplay(food.ingredients)}/>
                                 </div>
                                 <div className="grid-30">
                                     <input type="number" placeholder="Quantidade"
                                         onChange={(e) => this.props.onAmountChanged(e)}
-                                        name={`amout-${snack._id}`} id={`amout-${snack._id}`}
+                                        name={`amout-${food._id}`} id={`amout-${food._id}`}
                                     />
                                 </div>
                             </div>

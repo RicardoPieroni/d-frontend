@@ -1,0 +1,5 @@
+.content-increase-ingredient {
+    height: 70% !important;
+    max-height: 70%;
+    overflow: scroll;
+}

@@ -26,3 +26,7 @@
     text-align: center;
     background-color: white;
 }
+
+.fa-plus-square, .fa-trash-alt {
+    cursor: pointer;
+}

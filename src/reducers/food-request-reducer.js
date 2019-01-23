@@ -1,9 +1,11 @@
 
 const initialState = {
     ingredientList: [],
-    snackList: [],
+    foodList: [],
     requestList: [],
     request: undefined,
+    ingredientsToAdd: [],
+    referencedFood: undefined,
 };
   
 export const FoodRequestReducer = (state = initialState, action) => {
@@ -16,12 +18,12 @@ export const FoodRequestReducer = (state = initialState, action) => {
     case 'RETRIEVE_ALL_SNACKS':
       return {
         ...state,
-        snackList: action.snackList,
+        foodList: action.foodList,
       }
     case 'RETRIEVE_FOOD_REQUEST_DETAILS':
       return {
         ...state,
-        snackList: action.snackList,
+        foodList: action.foodList,
         ingredientList: action.ingredientList,
       }
     case 'ADD_SNACK_ON_REQUEST_LIST':
@@ -38,6 +40,23 @@ export const FoodRequestReducer = (state = initialState, action) => {
       return {
         ...state,
         request: action.request,
+      }
+    case 'ADD_INGREDIENT_IN_TO_LIST':
+      return {
+        ...state,
+        ingredientsToAdd: action.ingredientsToAdd
+      }
+    case 'ADD_REFERENCED_FOOD' :
+      return {
+        ...state,
+        referencedFood: action.referencedFood,
+      }
+    case 'UPDATE_INGREDIENTS_FROM_REQUEST':
+      return {
+        ...state,
+        request: action.request,
+        referencedFood: action.referencedFood,
+        ingredientsToAdd: action.ingredientsToAdd
       }
     default:
       return state;

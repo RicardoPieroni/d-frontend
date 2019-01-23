@@ -1,34 +1,50 @@
+import Promise from 'bluebird';
 import serviceHandle from './../services/service-handle';
 
 const service = serviceHandle.retrieveService()
 const retrieveIngredientList = () => {
-    const ingredientList = service.retrieveAllIngredients();
-    return {
-        type: 'RETRIEVE_ALL_INGREDIENTS',
-        ingredientList,
+    return dispatch => { 
+        return service.retrieveAllIngredients()
+            .then((result) => {
+
+                dispatch({
+                    type: 'RETRIEVE_ALL_INGREDIENTS',
+                    ingredientList: result,
+                });
+        });
     }
 };
 
-const retrieveSnackList = () => {
-    const snackList = service.retrieveAllSnack();
-    return {
-        type: 'RETRIEVE_ALL_SNACKS',
-        snackList,
+const retrieveFoodList = () => {
+    return dispatch => { 
+        return service.retrieveAllFood()
+            .then((result) => {
+                dispatch({
+                    type: 'RETRIEVE_ALL_SNACKS',
+                    foodList: result,
+                });
+            });
     }
 };
 
 const retrieveFoodRequestDetails = () => {
-    const ingredientList = service.retrieveAllIngredients();
-    const snackList = service.retrieveAllSnack();
-    return {
-        type: 'RETRIEVE_FOOD_REQUEST_DETAILS',
-        snackList,
-        ingredientList,
+    return dispatch => {
+        return Promise.all([
+            service.retrieveAllIngredients(),
+            service.retrieveAllFood()
+        ]).then((result) => {
+            dispatch({
+                type: 'RETRIEVE_FOOD_REQUEST_DETAILS',
+                ingredientList: result[0],
+                foodList: result[1],
+            });
+        })
     }
+
 }
 
-const removeSnackFromRequestList = (requestList, snackTO) => {
-    const { _id } = snackTO;
+const removeFoodFromRequestList = (requestList, foodTO) => {
+    const { _id } = foodTO;
     const requestListClone = JSON.parse(JSON.stringify(requestList));
 
     return {
@@ -37,11 +53,11 @@ const removeSnackFromRequestList = (requestList, snackTO) => {
     }
 }
 
-const addSnackOnRequestList = (requestList, snackTO) => {
+const addFoodOnRequestList = (requestList, foodTO) => {
     let requestListClone = JSON.parse(JSON.stringify(requestList));
-    const { _id, amount } = snackTO;
-    const snack = requestListClone.find((item) => item._id === _id);
-    if (!snack) {
+    const { _id, amount } = foodTO;
+    const food = requestListClone.find((item) => item._id === _id);
+    if (!food) {
         requestListClone.push({
             _id,
             amount: amount ? amount : null,
@@ -63,18 +79,68 @@ const addSnackOnRequestList = (requestList, snackTO) => {
 }
 
 const addRequestListInToRequest = (requestList) => {
-    const request = service.calculateRequest(requestList);
+    return dispatch => {
+        return service.calculateRequest(requestList)
+            .then((result) => {
+                dispatch({
+                    type: 'ADD_REQUEST_LIST_IN_TO_REQUEST',
+                    request: result,
+                });
+            });
+    }
+}
+
+const addIngredientInToFood = (ingredientsToAdd, ingredient) => {
+    let list = JSON.parse(JSON.stringify(ingredientsToAdd));
+
+    const ingredientFound = list.find((item) => ingredient._id === item._id);
+
+    if (ingredientFound) {
+        list = list.map((item) => {
+            if (item._id === ingredient._id) {
+                item.amount = ingredient.amount;
+            }
+            return item;
+        })
+    } else {
+        list.push(ingredient);
+    }
+
     return {
-        type: 'ADD_REQUEST_LIST_IN_TO_REQUEST',
-        request: request,
+        type: 'ADD_INGREDIENT_IN_TO_LIST',
+        ingredientsToAdd: list,
+    }
+}
+
+const addReferencedFood = (food) => {
+    return {
+        type: 'ADD_REFERENCED_FOOD',
+        referencedFood: food,
+    }
+}
+
+const updateIngredientsFromRequest = (ingredients, food, request) => {
+    return dispatch => {
+        return service.updateIngredientsInToRequest(ingredients, food, request)
+            .then((result) => {
+                 dispatch({
+                    type: 'UPDATE_INGREDIENTS_FROM_REQUEST',
+                    request: result,
+                    ingredientsToAdd: [],
+                    referencedFood: undefined,
+                });
+            });
     }
 }
 
 export {
     retrieveIngredientList,
-    retrieveSnackList,
+    retrieveFoodList,
     retrieveFoodRequestDetails,
-    addSnackOnRequestList,
-    removeSnackFromRequestList,
-    addRequestListInToRequest
+    addFoodOnRequestList,
+    removeFoodFromRequestList,
+    addRequestListInToRequest,
+    addIngredientInToFood,
+    addReferencedFood,
+    updateIngredientsFromRequest,
 };
