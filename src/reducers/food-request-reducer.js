@@ -65,6 +65,11 @@ export const FoodRequestReducer = (state = initialState, action) => {
         request: action.request,
         referencedFood: action.referencedFood 
       }
+    case 'SEND_REQUEST': 
+      return {
+        ...state,
+        request: action.request
+      }
     default:
       return state;
   }

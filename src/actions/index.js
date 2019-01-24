@@ -148,6 +148,54 @@ const removeFoodFromRequest = (request, food) => {
             });
     }
 }
+
+const retrieveAllRequests = () => {
+    return dispatch => {
+        return service.retrieveAllRequests()
+            .then((result) => {
+                dispatch(
+                    {
+                        type: 'RETRIEVE_ALL_REQUESTS',
+                        requests: result,
+                    });
+            });
+    }
+}
+
+const setReferencedRequest = (request) => {
+    return {
+        type: 'SET_REFERENCED_REQUEST',
+        referencedRequest: request,
+    }
+}
+
+const updateStatusOfRequest = (referencedRequest) => {
+    return dispatch => {
+        return service.updateStatusOfRequest(referencedRequest)
+            .then((result) => {
+                dispatch(
+                    {
+                        type: 'UPDATE_REQUEST',
+                        requests: result,
+                        referencedRequest: undefined,
+                    });
+            })
+    }
+}
+
+const createRequest = (request) => {
+    return dispatch => {
+        return service.createRequest(request)
+            .then((result) => {
+                dispatch(
+                    {
+                        type: 'SEND_REQUEST',
+                        request: result,
+                    });
+            })
+    }
+}
+
 export {
     retrieveIngredientList,
     retrieveFoodList,
@@ -158,5 +206,9 @@ export {
     addIngredientInToFood,
     addReferencedFood,
     updateIngredientsFromRequest,
-    removeFoodFromRequest
+    removeFoodFromRequest,
+    retrieveAllRequests,
+    setReferencedRequest,
+    updateStatusOfRequest,
+    createRequest
 };

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Info from '../../info';
-import $ from 'jquery';
 
 import './food-menu.css';
 

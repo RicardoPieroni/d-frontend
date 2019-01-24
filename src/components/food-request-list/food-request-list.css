@@ -1,0 +1,17 @@
+.food-list-content {
+    max-height: 60px;
+    overflow-y: scroll;
+}
+
+.table-list th {
+    background: #f2f3f3;
+}
+
+.table-list td {
+    border-bottom-style: solid;
+  border-bottom-color: rgb(149, 19, 131);
+}
+
+.fa-ban {
+    cursor: pointer;
+}

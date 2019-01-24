@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import $ from 'jquery';
-import TabHeader from './tab-header';
+import TabHeader from '../tab-header';
 import NavFoodRequest from './nav-food-request';
 import IncreaseIngredientModal from './increase-ingredient-modal';
 import FoodMenu from './food-menu';
@@ -19,7 +19,8 @@ import {
     addIngredientInToFood,
     addReferencedFood,
     updateIngredientsFromRequest,
-    removeFoodFromRequest
+    removeFoodFromRequest,
+    createRequest
 } from './../../actions';
 
 import './food-request.css';
@@ -36,6 +37,7 @@ class FoodRequest extends Component {
         this.onConfirmAddIngredients = this._onConfirmAddIngredients.bind(this);
         this.onRemoveFood = this._onRemoveFood.bind(this);
         this.onConfirmRemoveFodd = this._onConfirmRemoveFodd.bind(this);
+        this.onConfirmSendRequest = this._onConfirmSendRequest.bind(this);
     }
 
     _onToggleMenu() {
@@ -102,11 +104,19 @@ class FoodRequest extends Component {
         this.props.updateIngredientsFromRequest(this.props.ingredientsToAdd, this.props.referencedFood, this.props.request);
     }
 
+    _onConfirmSendRequest() {
+        this.props.createRequest(this.props.request);
+    }
+
     render(){
         const { ingredientList, foodList, requestList, request } = this.props;
         return (
             <div className="grid-parent grid-container food-request-container">
-                <TabHeader />
+                <TabHeader iconClassName='fas fa-list-alt fa-5x'
+                    title="Novo Pedido" 
+                    iconTitle="Meus Pedidos"
+                    link="/food-request/list"
+                />
                 <div className="grid-parent grid-100 food-request-form-wrapper">
                     <div className="grid-50">
                         <NavFoodRequest text= "Cardápio" onClicked={ this.onToggleMenu}/>
@@ -123,7 +133,7 @@ class FoodRequest extends Component {
                             onIncreaseIngredients={this.onIncreaseIngredients}
                             onRemoveFood={ this.onRemoveFood}
                         />
-                        <button className="btn-send-request">
+                        <button className="btn-send-request" onClick={this.onConfirmSendRequest}>
                             <i className="fas fa-share-square"></i>Enviar Pedido
                         </button>
                     </div>
@@ -156,7 +166,8 @@ const mapDispatchToProps = dispatch =>
     addIngredientInToFood,
     addReferencedFood,
     updateIngredientsFromRequest,
-    removeFoodFromRequest
+    removeFoodFromRequest,
+    createRequest
  }, dispatch);
   
 export default connect(mapStateToProps, mapDispatchToProps)(FoodRequest);
