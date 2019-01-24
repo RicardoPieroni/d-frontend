@@ -9,6 +9,7 @@ class FoodRequestDataTable extends Component {
         super();
         this.prepareIngredientsToDisplay = this._prepareIngredientsToDisplay.bind(this);
         this.onIncreaseIngredientsModalClicked = this._onIncreaseIngredientsModalClicked.bind(this);
+        this.onRemoveFoodModalClicked = this._onRemoveFoodModalClicked.bind(this);
     }
 
     _prepareIngredientsToDisplay(data) {
@@ -17,6 +18,13 @@ class FoodRequestDataTable extends Component {
 
     _onIncreaseIngredientsModalClicked(data) {
         const callback = this.props.onIncreaseIngredients;
+        if (callback) {
+            callback(data);
+        }
+    }
+
+    _onRemoveFoodModalClicked(data) {
+        const callback = this.props.onRemoveFood;
         if (callback) {
             callback(data);
         }
@@ -56,7 +64,9 @@ class FoodRequestDataTable extends Component {
                                             <td>
                                                 <i onClick={() => this.onIncreaseIngredientsModalClicked(item)}
                                                     className="fas fa-plus-square" />
-                                                <i className="fas fa-trash-alt"></i>
+                                                <i 
+                                                    onClick={() => this.onRemoveFoodModalClicked(item)}                                                
+                                                className="fas fa-trash-alt"></i>
                                             </td>
                                         </tr>
                                     )

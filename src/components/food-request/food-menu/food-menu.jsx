@@ -17,7 +17,7 @@ class FoodMenu extends Component {
     }
 
     render() {
-        const { foodList } = this.props;
+        const { foodList, requestList } = this.props;
         return(
             <div className="grid-100">
                 <div className="grid-100">
@@ -36,8 +36,13 @@ class FoodMenu extends Component {
                                     iconSizeClass="fa-2x" classReference={food._id}
                                     description={this.prepareIngredientsToDisplay(food.ingredients)}/>
                                 </div>
+                                {
+                                    
+                                }
                                 <div className="grid-30">
                                     <input type="number" placeholder="Quantidade"
+                                        min="1" max="50"
+                                        value={requestList.find((item) => item._id === food._id) ? requestList.find((item) => item._id === food._id).amount : ''}
                                         onChange={(e) => this.props.onAmountChanged(e)}
                                         name={`amout-${food._id}`} id={`amout-${food._id}`}
                                     />

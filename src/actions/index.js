@@ -85,6 +85,7 @@ const addRequestListInToRequest = (requestList) => {
                 dispatch({
                     type: 'ADD_REQUEST_LIST_IN_TO_REQUEST',
                     request: result,
+                    requestList: [],
                 });
             });
     }
@@ -132,7 +133,21 @@ const updateIngredientsFromRequest = (ingredients, food, request) => {
             });
     }
 }
-
+const removeFoodFromRequest = (request, food) => {
+    const { requestList } = request;
+    const requestListUpdated = requestList.filter((item) => item._id !== food._id);
+    return dispatch => {
+        return service.calculateRequest(requestListUpdated)
+            .then((result) => {
+                dispatch(
+                    {
+                        type: 'REMOVE_FOOD_FROM_REQUEST',
+                        request: result,
+                        referencedFood: undefined,
+                    });
+            });
+    }
+}
 export {
     retrieveIngredientList,
     retrieveFoodList,
@@ -143,4 +158,5 @@ export {
     addIngredientInToFood,
     addReferencedFood,
     updateIngredientsFromRequest,
+    removeFoodFromRequest
 };

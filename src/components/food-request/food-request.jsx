@@ -5,6 +5,7 @@ import NavFoodRequest from './nav-food-request';
 import IncreaseIngredientModal from './increase-ingredient-modal';
 import FoodMenu from './food-menu';
 import FoodRequestDataTable from './food-request-data-table';
+import RemoveFoodModal from './remove-food-modal';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -17,7 +18,8 @@ import {
     addRequestListInToRequest,
     addIngredientInToFood,
     addReferencedFood,
-    updateIngredientsFromRequest
+    updateIngredientsFromRequest,
+    removeFoodFromRequest
 } from './../../actions';
 
 import './food-request.css';
@@ -32,7 +34,8 @@ class FoodRequest extends Component {
         this.onAddRequest = this._onAddRequest.bind(this);
         this.onAmountIncreaseModalChanged = this._onAmountIncreaseModalChanged.bind(this);
         this.onConfirmAddIngredients = this._onConfirmAddIngredients.bind(this);
-
+        this.onRemoveFood = this._onRemoveFood.bind(this);
+        this.onConfirmRemoveFodd = this._onConfirmRemoveFodd.bind(this);
     }
 
     _onToggleMenu() {
@@ -53,7 +56,7 @@ class FoodRequest extends Component {
         }
         if (amount >= 1) {
             this.props.addFoodOnRequestList(this.props.requestList, dataTO)
-        } else {
+        } else if (amount === ''){
             this.props.removeFoodFromRequestList(this.props.removeFoodFromRequestList, dataTO);
         }
     }
@@ -67,6 +70,18 @@ class FoodRequest extends Component {
         $('body').addClass('modal-opened');
         $('.modal-increase-ingredient').addClass('modal-visible');
         this.props.addReferencedFood(data);
+    }
+
+    _onRemoveFood(data) {
+        $('body').addClass('modal-opened');
+        $('.modal-remove-food').addClass('modal-visible');
+        this.props.addReferencedFood(data);
+    }
+
+    _onConfirmRemoveFodd() {
+        $('body').removeClass('modal-opened');
+        $('.modal-remove-food').removeClass('modal-visible');
+        this.props.removeFoodFromRequest(this.props.request, this.props.referencedFood);
     }
 
     _onAmountIncreaseModalChanged(e) {
@@ -106,9 +121,10 @@ class FoodRequest extends Component {
                     <div className="grid-50">
                         <FoodRequestDataTable request={request}
                             onIncreaseIngredients={this.onIncreaseIngredients}
+                            onRemoveFood={ this.onRemoveFood}
                         />
                         <button className="btn-send-request">
-                        <i className="fas fa-share-square"></i>Enviar Pedido
+                            <i className="fas fa-share-square"></i>Enviar Pedido
                         </button>
                     </div>
                 </div>
@@ -116,6 +132,7 @@ class FoodRequest extends Component {
                     onConfirmAddIngredients={this.onConfirmAddIngredients}
                     onAmountIncreaseModalChanged={this.onAmountIncreaseModalChanged}
                 />
+                <RemoveFoodModal onConfirmRemoveFodd={this.onConfirmRemoveFodd}/>
             </div>
         );
     }
@@ -139,6 +156,7 @@ const mapDispatchToProps = dispatch =>
     addIngredientInToFood,
     addReferencedFood,
     updateIngredientsFromRequest,
+    removeFoodFromRequest
  }, dispatch);
   
 export default connect(mapStateToProps, mapDispatchToProps)(FoodRequest);

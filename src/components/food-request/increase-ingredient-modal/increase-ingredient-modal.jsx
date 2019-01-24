@@ -42,6 +42,7 @@ class IncreaseIngredientModal extends Component {
                                         </div>
                                         <div className="grid-50">
                                         <input type="number" placeholder="Quantidade"
+                                        min="1" max="15"
                                         onChange={(e) => this.props.onAmountIncreaseModalChanged(e)}
                                         name={`amout-${ingredient._id}`} id={`amout-${ingredient._id}`}
                                     />

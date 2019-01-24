@@ -40,6 +40,7 @@ export const FoodRequestReducer = (state = initialState, action) => {
       return {
         ...state,
         request: action.request,
+        requestList: action.requestList
       }
     case 'ADD_INGREDIENT_IN_TO_LIST':
       return {
@@ -57,6 +58,12 @@ export const FoodRequestReducer = (state = initialState, action) => {
         request: action.request,
         referencedFood: action.referencedFood,
         ingredientsToAdd: action.ingredientsToAdd
+      }
+    case 'REMOVE_FOOD_FROM_REQUEST':
+      return {
+        ...state,
+        request: action.request,
+        referencedFood: action.referencedFood 
       }
     default:
       return state;
