@@ -145,7 +145,7 @@ class ServiceMock {
                         const amount = Number(referenceIngredient.amount) + Number(ingredient.amount);
                         const name = referenceIngredient.name;
                         const price = referenceIngredient.price;
-                        food.ingredients = food.ingredients.filter((item) => item._id !== referenceIngredient._id); // removing the future duplicate objct
+                        foodCloned.ingredients = foodCloned.ingredients.filter((item) => item._id !== referenceIngredient._id); // removing the future duplicate objct
 
                         return {
                             amount,
@@ -159,7 +159,7 @@ class ServiceMock {
                         return newIngredientToFood;
                     }
                 });
-    
+
                 foodCloned.ingredients = foodCloned.ingredients.concat(ingredientsUpdated);
                 const requestList = request.requestList;
                 const requestListUpdated = requestList.map((requestItem) => {
