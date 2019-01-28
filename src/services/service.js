@@ -1,11 +1,6 @@
 import Promise from 'bluebird';
-import ingredientList from './services-mock/data/ingredient-list.json';
-import foodList from './services-mock/data/food-list.json';
-import moment from 'moment';
-import Chance from 'chance';
 import axios from 'axios';
 
-const chanceInstance = new Chance();
 
 class Service {
 
@@ -30,12 +25,18 @@ class Service {
     }
 
     retrieveFoodRequestDetails() {
-        return new Promise((resolve) => {
-            resolve({
+        return Promise.all([
+            this.retrieveAllIngredients,
+            this.retrieveAllFood
+        ]).then((result) => {
+            const ingredientList = result[0];
+            const foodList = result[1];
+
+            return Promise.resolve({
                 ingredientList,
                 foodList
-            });
-        });
+            })
+        })
     }
 
     /**
