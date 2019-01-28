@@ -1,4 +1,5 @@
 import serviceMock from './services-mock/service-mock';
+import service from './service';
 
 class ServiceHandle {
     constructor() {
@@ -9,6 +10,8 @@ class ServiceHandle {
         if (this.enableMockups === 'true') {
             return serviceMock;
         }
+
+        return service;
 
     }
 

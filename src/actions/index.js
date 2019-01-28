@@ -190,7 +190,7 @@ const createRequest = (request) => {
                 dispatch(
                     {
                         type: 'SEND_REQUEST',
-                        request: result,
+                        request: undefined,
                     });
             })
     }
