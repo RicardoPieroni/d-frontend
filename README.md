@@ -5,7 +5,7 @@
 * Create a .env file on the root directory with the following content:	
 > REACT_APP_ENABLE_MOCKUPS=false
 
-> REACT_APP_V_BACKEND_URL=http://localhost:3006
+> REACT_APP_D_BACKEND_URL=http://localhost:3006
 
 ## Available Scripts
 
